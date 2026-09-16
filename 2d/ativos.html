@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#202a3b" />
+    <title>Ativos · Shih-tzu 2D</title>
+    <meta
+      name="description"
+      content="Galeria de ativos do 2D: paleta de direção, biblioteca de sprites e catálogo de móveis."
+    />
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; }
+      body {
+        background: #202a3b;
+        color: #f0e6cb;
+        font: 15px/1.5 system-ui, sans-serif;
+        padding-bottom: 60px;
+      }
+      main { max-width: 1180px; margin: 0 auto; padding: 26px 20px 10px; }
+      a { color: #dcb96a; }
+      h1 { font: 600 clamp(26px, 4.5vw, 38px) Georgia, serif; margin: 8px 0 4px; }
+      h2 {
+        font: 600 21px Georgia, serif;
+        margin: 40px 0 6px;
+        padding-top: 14px;
+        border-top: 1px solid #41465f;
+        color: #f0e6cb;
+      }
+      p.legenda { color: #a9b7c4; max-width: 760px; margin: 0 0 6px; font-size: 13.5px; }
+      .eyebrow { color: #6ca5a0; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; }
+      nav.topo {
+        display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px;
+      }
+      nav.topo a {
+        border: 1px solid #45616c; background: #263748; border-radius: 8px;
+        padding: 8px 14px; text-decoration: none; color: #f0e6cb; font-size: 13px;
+      }
+      nav.topo a:hover { background: #345363; }
+
+      /* --- barra de filtro --- */
+      .filtros {
+        display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin: 18px 0 6px;
+        position: sticky; top: 0; background: #202a3bee; backdrop-filter: blur(2px);
+        padding: 10px 0; z-index: 2;
+      }
+      .filtros label { display: grid; gap: 4px; font-size: 12px; color: #a9b7c4; }
+      .filtros input, .filtros select {
+        font: inherit; color: #f0e6cb; background: #263748; border: 1px solid #45616c;
+        border-radius: 7px; padding: 8px 10px; min-height: 38px;
+      }
+      #contagem { font-size: 13px; color: #a9b7c4; align-self: end; padding-bottom: 9px; }
+
+      /* --- paleta --- */
+      .paleta { display: flex; flex-wrap: wrap; gap: 10px; }
+      .cor {
+        width: 132px; border: 1px solid #41465f; border-radius: 8px; overflow: hidden;
+        background: #263748;
+      }
+      .cor__amostra { height: 56px; }
+      .cor__info { padding: 6px 9px; }
+      .cor__uso { font-size: 12px; display: block; }
+      .cor__hex { font: 11px ui-monospace, monospace; color: #a9b7c4; }
+      .cor--pendente .cor__uso::after {
+        content: " (não aprovado)"; color: #cb8964; font-size: 10px;
+      }
+
+      /* --- personagens --- */
+      .personagem { margin-bottom: 26px; }
+      .personagem__cabecalho { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .personagem__cabecalho h3 { font: 600 16px Georgia, serif; margin: 0; }
+      .personagem button {
+        font: inherit; color: #f0e6cb; border: 1px solid #45616c; background: #345363;
+        border-radius: 7px; padding: 7px 14px; cursor: pointer;
+      }
+      .personagem button:hover { background: #3f647a; }
+      .direcoes { display: flex; gap: 8px; overflow-x: auto; padding: 10px 0; }
+      .direcao { flex: 0 0 auto; text-align: center; }
+      .direcao canvas {
+        display: block; background: #192b37; border: 1px solid #37535b; border-radius: 6px;
+        image-rendering: pixelated;
+      }
+      .direcao span { display: block; font-size: 10px; color: #8fa6ad; margin-top: 3px; max-width: 90px; }
+
+      /* --- biblioteca de sprites --- */
+      .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-top: 12px; }
+      .cartao-sprite {
+        background: #263748; border: 1px solid #41465f; border-radius: 10px; padding: 12px;
+        display: flex; flex-direction: column; gap: 8px;
+      }
+      .cartao-sprite__topo { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+      .cartao-sprite__id { font-weight: 700; font-size: 14px; }
+      .cartao-sprite__tipo {
+        font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #6ca5a0;
+        border: 1px solid #3a5250; border-radius: 4px; padding: 1px 6px; white-space: nowrap;
+      }
+      .cartao-sprite canvas {
+        display: block; margin: 0 auto; background: #192b37; border: 1px solid #37535b;
+        border-radius: 6px; image-rendering: pixelated; max-width: 100%;
+      }
+      .cartao-sprite dl { margin: 0; font-size: 12px; color: #c7d2d6; }
+      .cartao-sprite dl div { display: flex; justify-content: space-between; gap: 8px; padding: 1px 0; }
+      .cartao-sprite dl dt { color: #8fa6ad; }
+      .cartao-sprite details { font-size: 12px; color: #c7d2d6; }
+      .cartao-sprite summary { cursor: pointer; color: #dcb96a; }
+      .cartao-sprite details p { margin: 6px 0 0; }
+
+      /* --- catálogo de móveis --- */
+      .tabela-rolante { overflow-x: auto; margin-top: 12px; max-width: 100%; }
+      table.catalogo { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 13px; }
+      table.catalogo th, table.catalogo td {
+        text-align: left; padding: 7px 10px; border-bottom: 1px solid #354458;
+      }
+      table.catalogo th { color: #6ca5a0; font-weight: 600; font-size: 11px; text-transform: uppercase; }
+      table.catalogo tr[data-na-fase="false"] { opacity: 0.55; }
+      .marca-fase { color: #92aa68; }
+
+      footer { max-width: 1180px; margin: 30px auto 0; padding: 0 20px; color: #7c8f97; font-size: 12px; }
+      #status { color: #a5cbbd; }
+      @media (max-width: 560px) {
+        main { padding: 18px 14px 6px; }
+        .filtros { position: static; }
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/ativos-CbDXYy1_.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/actorMotion-w70A5W2x.js">
+  </head>
+  <body>
+    <main>
+      <span class="eyebrow">Shih-tzu · direção pixel aprovada</span>
+      <h1>Galeria de ativos do 2D</h1>
+      <p class="legenda">
+        Paleta de direção, biblioteca de sprites (<code>art-source/sprites/</code>) e catálogo de
+        móveis (<code>src/catalog/furniture.ts</code>), lidos direto dos arquivos que o jogo usa —
+        nenhum número aqui é digitado à mão duas vezes.
+      </p>
+      <nav class="topo">
+        <a href="../">Menu</a>
+        <a href="./">Jogo</a>
+      </nav>
+      <p id="status" role="status">Carregando os atlas…</p>
+
+      <div class="filtros">
+        <label>Buscar<input id="filtro-texto" type="search" placeholder="id ou rótulo…" /></label>
+        <label>
+          Tipo
+          <select id="filtro-tipo">
+            <option value="todos">Todos</option>
+            <option value="movel">Móvel</option>
+            <option value="objeto">Objeto</option>
+            <option value="material">Material</option>
+            <option value="personagem">Personagem</option>
+          </select>
+        </label>
+        <label>
+          Ampliação
+          <select id="zoom">
+            <option value="2">2×</option>
+            <option value="4">4×</option>
+          </select>
+        </label>
+        <span id="contagem"></span>
+      </div>
+
+      <h2>Paleta de direção</h2>
+      <p class="legenda">
+        Cores-alvo aprovadas para o pixel art, lidas de <code>src/sceneConfig.ts</code>. Detalhes em
+        <code>2D/docs/DIRECAO-2D.md</code>.
+      </p>
+      <div class="paleta" id="paleta"></div>
+
+      <h2>Personagens</h2>
+      <p class="legenda">
+        Cachorro (0,70 m de comprimento) e humano adulto (1,78 m) nas oito direções, com a mesma
+        escala de pixel. “Animar” percorre o ciclo de passada usado no jogo.
+      </p>
+      <div id="personagens"></div>
+
+      <h2>Biblioteca de sprites</h2>
+      <p class="legenda">
+        Uma peça por pasta de <code>art-source/sprites/&lt;id&gt;/</code>, com a região desenhada do
+        atlas publicado, a âncora (marcador vermelho), o tamanho em pixels e em metros, a pegada
+        declarada e a origem — desenhado à mão, migrado do atlas anterior ou gerado por IA.
+      </p>
+      <div class="grade" id="biblioteca"></div>
+
+      <h2>Catálogo de móveis</h2>
+      <p class="legenda">
+        Uma linha por peça de <code>src/catalog/furniture.ts</code>: id, rótulo, quem desenha
+        (sprite ou pintor geométrico), a altura de apoio e o topo visual. Linhas apagadas não estão
+        na fase 1 hoje.
+      </p>
+      <div class="tabela-rolante">
+        <table class="catalogo">
+          <thead>
+            <tr>
+              <th>Id</th><th>Rótulo</th><th>Desenho</th><th>Apoio</th><th>Topo visual</th><th>Fase 1</th>
+            </tr>
+          </thead>
+          <tbody id="catalogo"></tbody>
+        </table>
+      </div>
+    </main>
+    <footer>Ferramenta de consulta; não altera dado nenhum. Ver <code>2D/docs/PLATAFORMA.md</code>.</footer>
+  </body>
+</html>
